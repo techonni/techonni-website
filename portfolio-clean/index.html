@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techonni — Portfolio Clean</title>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root { --bg-start:#f8fafc; --bg-end:#e2e8f0; --text:#0f172a; --muted:#475569; --muted-2:#64748b; }
+        body.dark{
+            --bg-start:#000000;
+            --bg-end:#111111;
+            --text:#ffffff;
+            --muted:#cccccc;
+            --muted-2:#aaaaaa;
+            --card:#222222;
+            --border: rgba(255,255,255,.15);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .t-nav{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,var(--bg-start),var(--bg-end));transition:transform .3s ease}
+        .t-nav-inner{max-width:1200px;margin:0 auto;padding:22px 40px;display:flex;align-items:center;justify-content:space-between}
+        .t-brand{font-size:20px;letter-spacing:2px;text-transform:uppercase;font-weight:500;color:var(--text);text-decoration:none}
+        .t-links a{margin-left:28px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.t-links a:hover{color:var(--text)}
+        .t-actions{display:flex;align-items:center;gap:12px}
+        .t-toggle{background:none;border:1px solid var(--border);color:var(--muted);padding:6px 10px;border-radius:8px;cursor:pointer}
+        .t-toggle:hover{opacity:.9}
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 250, 250, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 200;
+            letter-spacing: 3px;
+            color: #333;
+            text-decoration: none;
+            text-transform: lowercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 50px;
+        }
+
+        .nav-links a {
+            color: #777;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #333;
+        }
+
+        .nav-contact {
+            color: #999;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-contact:hover {
+            color: #333;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 100px;
+            padding: 80px 50px 60px;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 84px);
+            font-weight: 100;
+            letter-spacing: 4px;
+            color: #222;
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            opacity: 0.7;
+        }
+
+        /* Portfolio Grid */
+        .portfolio {
+            padding: 0 50px 100px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .project-card {
+            position: relative;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card.span-6 {
+            grid-column: span 6;
+        }
+
+        .project-card.span-4 {
+            grid-column: span 4;
+        }
+
+        .project-card.span-8 {
+            grid-column: span 8;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: scale 0.4s ease;
+        }
+
+        .project-card:hover .project-image {
+            scale: 1.05;
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-category {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .project-title {
+            font-size: 24px;
+            font-weight: 300;
+            color: #333;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-link:hover {
+            opacity: 0.7;
+        }
+
+        /* Special Cards */
+        .project-card.featured {
+            grid-column: span 12;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 0;
+        }
+
+        .project-card.featured .project-image {
+            height: 400px;
+        }
+
+        .project-card.featured .project-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+        }
+
+        .project-card.featured .project-title {
+            font-size: 36px;
+        }
+
+        .project-card.tall .project-image {
+            height: 500px;
+        }
+
+        .project-card.square .project-image {
+            height: 250px;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 80px;
+            padding: 60px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 100;
+            color: #333;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* About Section */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-bottom: 100px;
+        }
+
+        .about-content h2 {
+            font-size: 36px;
+            font-weight: 200;
+            color: #333;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .about-content p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .project-card.featured {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card.span-6,
+            .project-card.span-4,
+            .project-card.span-8 {
+                grid-column: span 6;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .nav {
+                padding: 20px 30px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero,
+            .portfolio {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .project-card.featured,
+            .project-card.span-6,
+            .project-card.span-4,
+            .project-card.span-8 {
+                grid-column: span 1;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger {
+            transition-delay: var(--delay, 0s);
+        }
+    </style>
+</head>
+<body>
+    <nav class="t-nav" id="t-nav">
+        <div class="t-nav-inner">
+            <a href="/" class="t-brand">Techonni</a>
+            <div class="t-links">
+                <a href="/">Templates</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="t-actions">
+                <button id="t-toggle" class="t-toggle" aria-label="Toggle dark mode">☾</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero fade-in">
+        <h1>Creative Design<br>Studio</h1>
+        <p>We create beautiful, functional, and meaningful digital experiences that connect brands with their audiences in authentic and memorable ways.</p>
+        <a href="#" class="hero-cta">
+            View Our Work
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17l9.2-9.2M17 17V7H7"/>
+            </svg>
+        </a>
+    </section>
+
+    <!-- Portfolio -->
+    <section class="portfolio">
+        <div class="portfolio-grid">
+            <!-- Featured Project -->
+            <article class="project-card featured fade-in">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=6000&q=95&auto=format&fit=crop" alt="Minimal Workspace Design" class="project-image">
+                <div class="project-content">
+                    <div class="project-category">Featured Work</div>
+                    <h3 class="project-title">Minimal Workspace<br>Design System</h3>
+                    <p class="project-description">A comprehensive design system for modern workspaces that prioritizes functionality, aesthetics, and user experience. Created for forward-thinking companies who value clean design and efficient workflows.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Regular Projects -->
+            <article class="project-card span-4 fade-in stagger" style="--delay: 0.1s">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=6000&q=95&auto=format&fit=crop" alt="Product Design" class="project-image">
+                <div class="project-content">
+                    <div class="project-category">Product Design</div>
+                    <h3 class="project-title">Smart Home Interface</h3>
+                    <p class="project-description">Intuitive mobile interface for smart home control systems.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <article class="project-card span-8 fade-in stagger" style="--delay: 0.2s">
+                <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=6000&q=95&auto=format&fit=crop" alt="Architecture Portfolio" class="project-image">
+                <div class="project-content">
+                    <div class="project-category">Web Design</div>
+                    <h3 class="project-title">Architecture Portfolio Website</h3>
+                    <p class="project-description">A stunning portfolio website for contemporary architects showcasing their most innovative projects with immersive photography and clean layouts.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <article class="project-card span-6 fade-in stagger" style="--delay: 0.3s">
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=6000&q=95&auto=format&fit=crop" alt="Brand Identity" class="project-image">
+                <div class="project-content">
+                    <div class="project-category">Brand Identity</div>
+                    <h3 class="project-title">Luxury Hotel Branding</h3>
+                    <p class="project-description">Complete brand identity for boutique hotels including logo, stationery, and digital assets.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <article class="project-card span-6 tall fade-in stagger" style="--delay: 0.4s">
+                <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=6000&q=95&auto=format&fit=crop" alt="Editorial Design" class="project-image">
+                <div class="project-content">
+                    <div class="project-category">Editorial</div>
+                    <h3 class="project-title">Modern Magazine Layout</h3>
+                    <p class="project-description">Contemporary editorial design for lifestyle magazines with focus on typography and visual hierarchy.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <article class="project-card span-4 square fade-in stagger" style="--delay: 0.5s">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=6000&q=95&auto=format&fit=crop" alt="App Design" class="project-image">
+                <div class="project-content">
+                    <div class="project-category">App Design</div>
+                    <h3 class="project-title">Travel Companion</h3>
+                    <p class="project-description">Mobile app for discovering hidden gems and local experiences.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <article class="project-card span-8 fade-in stagger" style="--delay: 0.6s">
+                <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=6000&q=95&auto=format&fit=crop" alt="Interior Design" class="project-image">
+                <div class="project-content">
+                    <div class="project-category">Interior Design</div>
+                    <h3 class="project-title">Scandinavian Living Spaces</h3>
+                    <p class="project-description">Minimal and functional interior design projects that embody the principles of Scandinavian design philosophy with natural materials and clean lines.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats fade-in">
+            <div class="stat">
+                <div class="stat-number">150+</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Clients</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Years</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Awards</div>
+            </div>
+        </div>
+
+        <!-- About -->
+        <div class="about fade-in">
+            <div class="about-content">
+                <h2>Design Philosophy</h2>
+                <p>We believe that great design is invisible. It's about creating experiences that feel natural and effortless, where form follows function and every element serves a purpose.</p>
+                <p>Our approach combines strategic thinking with creative execution, ensuring that every project not only looks beautiful but also delivers meaningful results for our clients and their users.</p>
+                <p>We work with brands who share our passion for excellence and understand the power of thoughtful design to transform businesses and connect with people on a deeper level.</p>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=6000&q=95&auto=format&fit=crop" alt="Studio workspace" class="about-image">
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align:center;padding:40px 0;border-top:1px solid rgba(15,23,42,.08);color:#64748b">techonni 2025</footer>
+
+    <script>
+        (function(){
+            let last=0; const nav=document.getElementById('t-nav');
+            window.addEventListener('scroll',()=>{const y=window.scrollY||document.documentElement.scrollTop; nav.style.transform=(y>last&&y>100)?'translateY(-100%)':'translateY(0)'; last=y;},{passive:true});
+        })();
+
+        // Intersection Observer for animations
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(item => observer.observe(item));
+
+        // Project card click handlers
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('.project-link')) console.log('Project clicked:', this);
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+        });
+    </script>
+    <script src="/theme.js" defer></script>
+</body>
+</html>
