@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techonni - Premium Website Templates</title>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-start: #f8fafc; /* slate-50 */
+            --bg-end: #e2e8f0;   /* slate-200 */
+            --text: #0f172a;     /* slate-900 */
+            --muted: #475569;    /* slate-600 */
+            --muted-2: #64748b;  /* slate-500 */
+            --card: #ffffff;
+            --border: rgba(15, 23, 42, 0.08);
+        }
+        body.dark{
+            --bg-start:#000000;
+            --bg-end:#111111;
+            --text:#ffffff;
+            --muted:#cccccc;
+            --muted-2:#aaaaaa;
+            --card:#222222;
+            --border: rgba(255,255,255,.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+            transition: transform .3s ease;
+        }
+        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 22px 40px; display: flex; align-items: center; justify-content: space-between; }
+        .brand { font-size: 20px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; color: var(--text); text-decoration: none; }
+        .links a { margin-left: 28px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+.links a:hover { color: var(--text); }
+        .t-actions{display:flex;align-items:center;gap:12px}
+        .t-toggle{background:none;border:1px solid var(--border);color:var(--muted);padding:6px 10px;border-radius:8px;cursor:pointer}
+        .t-toggle:hover{color:var(--text);background:rgba(0,0,0,.03)}
+
+        .container { max-width: 1200px; padding: 60px 40px; margin: 0 auto; }
+        .header { margin: 40px 0 80px; text-align: center; }
+        .title { font-size: clamp(48px, 8vw, 72px); font-weight: 100; letter-spacing: 3px; color: var(--text); margin-bottom: 30px; line-height: 1.1; }
+        .subtitle { font-size: 20px; color: var(--muted); font-weight: 300; letter-spacing: 1px; margin-bottom: 20px; }
+        .description { font-size: 16px; color: var(--muted-2); font-weight: 300; max-width: 700px; margin: 0 auto; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-bottom: 60px; }
+        .card { background: var(--card); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 40px rgba(0, 0, 0, 0.06); transition: transform 0.4s ease, box-shadow 0.4s ease; text-decoration: none; color: inherit; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 60px rgba(0, 0, 0, 0.12); }
+        .card-image { width: 100%; height: 220px; background-size: cover; background-position: center; position: relative; }
+        .card-overlay { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,.9); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: #333; }
+        .card-content { padding: 30px; }
+        .card-title { font-size: 24px; font-weight: 300; color: var(--text); margin-bottom: 12px; letter-spacing: 1px; }
+        .card-description { font-size: 14px; color: var(--muted); line-height: 1.6; font-weight: 300; margin-bottom: 20px; }
+        .card-link { display: inline-flex; align-items: center; gap: 8px; color: var(--text); font-size: 13px; font-weight: 400; letter-spacing: .5px; text-transform: uppercase; }
+
+        .clipboard { background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=6000&q=95&auto=format&fit=crop'); }
+        .portfolio { background-image: url('https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=6000&q=95&auto=format&fit=crop'); }
+
+        .footer { padding-top: 40px; border-top: 1px solid var(--border); text-align: center; }
+        .footer-text { font-size: 14px; color: var(--muted-2); font-weight: 300; }
+
+        @media (max-width: 768px){ .container{ padding: 40px 20px; } .grid{ grid-template-columns: 1fr; gap: 20px; } .card-content{ padding: 20px; } .links{ display:none;} }
+
+        /* Animations */
+        .card{ opacity:0; transform: translateY(30px); animation: fadeInUp .6s ease forwards; }
+        .card:nth-child(1){animation-delay:.1s}.card:nth-child(2){animation-delay:.2s}.card:nth-child(3){animation-delay:.3s}.card:nth-child(4){animation-delay:.4s}
+        @keyframes fadeInUp{to{opacity:1;transform:translateY(0)}}
+        .header{opacity:0;animation:fadeIn .8s ease .4s forwards}@keyframes fadeIn{to{opacity:1}}
+    </style>
+</head>
+<body>
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="/" class="brand">Techonni</a>
+            <div class="links">
+                <a href="/">Templates</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="t-actions">
+                <button id="t-toggle" class="t-toggle" aria-label="Toggle dark mode">☾</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Techonni</h1>
+            <p class="subtitle">Premium Website Templates</p>
+            <p class="description">
+                Boutique exclusiva de temas minimalistas com fotografia de alta qualidade e design limpo. 
+                Todos os templates são otimizados para performance, tipografia refinada e uma paleta monocromática elegante.
+            </p>
+        </div>
+
+        <div class="grid">
+            <a href="clipboard/" class="card">
+                <div class="card-image clipboard">
+                    <div class="card-overlay">Minimalista</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Clipboard</h2>
+                    <p class="card-description">Grid de inspiração visual com navegação clean e sidebar de categorias. Foco em arquitetura e design.</p>
+                    <div class="card-link">Ver Página
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                    </div>
+                </div>
+            </a>
+
+            <a href="portfolio-clean/" class="card">
+                <div class="card-image portfolio">
+                    <div class="card-overlay">Portfolio</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Portfolio Clean</h2>
+                    <p class="card-description">Portfólio criativo com grid de projetos e animações suaves. Fotografia de qualidade em foco.</p>
+                    <div class="card-link">Ver Página
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p class="footer-text">techonni 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Navbar auto-hide on scroll
+        (function(){
+            let last = 0; const nav = document.getElementById('nav');
+            window.addEventListener('scroll', () => {
+                const y = window.scrollY || document.documentElement.scrollTop;
+                nav.style.transform = (y > last && y > 100) ? 'translateY(-100%)' : 'translateY(0)';
+                last = y;
+            }, { passive: true });
+        })();
+
+        // Card hover micro-interactions
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function(){ this.style.transform = 'translateY(-12px) scale(1.02)'; });
+            card.addEventListener('mouseleave', function(){ this.style.transform = 'translateY(-8px) scale(1)'; });
+        });
+    </script>
+    <script src="/theme.js" defer></script>
+</body>
+</html>
