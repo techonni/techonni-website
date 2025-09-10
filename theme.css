@@ -1,5 +1,4 @@
 :root {
-  color-scheme: light dark;
   --bg-start: #f6f7f9;
   --bg-end: #ffffff;
   --text: #0b0d0f;
@@ -13,17 +12,6 @@
 body {
   color: var(--text);
   background-color: var(--bg-start);
-}
-
-body.dark {
-  color-scheme: dark;
-  --bg-start: #000000;
-  --bg-end: #111111;
-  --text: #ffffff;
-  --muted: #cccccc;
-  --muted-2: #aaaaaa;
-  --card: #222222;
-  --border: rgba(255, 255, 255, 0.15);
 }
 
 /* Utilities */
