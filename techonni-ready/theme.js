@@ -20,7 +20,7 @@
   function applyTheme(theme) {
     document.body.classList.toggle('dark', theme === 'dark');
     const btn = document.getElementById('t-toggle');
-    if (btn) btn.textContent = theme === 'dark' ? '☀️' : '☾';
+    if (btn) btn.textContent = theme === 'dark' ? '☀' : '☾';
   }
 
   function init() {

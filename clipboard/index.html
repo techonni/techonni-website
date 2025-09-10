@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Techonni — Clipboard</title>
-    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="../theme.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        :root { --bg-start:#f8fafc; --bg-end:#e2e8f0; --text:#0f172a; --muted:#475569; --muted-2:#64748b; }
+        :root { 
+            --bg-start:#f8fafc; 
+            --bg-end:#e2e8f0; 
+            --text:#0f172a; 
+            --muted:#475569; 
+            --muted-2:#64748b;
+            --card:#ffffff;
+            --border: rgba(0,0,0,.08);
+        }
         body.dark{
             --bg-start:#000000;
             --bg-end:#111111;
@@ -30,7 +38,7 @@
         .t-links a{margin-left:28px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-decoration:none}
 .t-links a:hover{color:var(--text)}
         .t-actions{display:flex;align-items:center;gap:12px}
-        .t-toggle{background:none;border:1px solid var(--border);color:var(--muted-2);padding:6px 10px;border-radius:8px;cursor:pointer}
+        .t-toggle{background:none;border:1px solid var(--border);color:var(--muted);padding:6px 10px;border-radius:8px;cursor:pointer}
         .t-toggle:hover{opacity:.9}
 
         /* Header */
@@ -38,11 +46,15 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(250, 250, 250, 0.98);
+            background: rgba(248, 250, 252, 0.98);
             backdrop-filter: blur(20px);
             z-index: 9999;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid var(--border);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+        
+        body.dark .header {
+            background: rgba(0, 0, 0, 0.98);
         }
 
         .nav {
@@ -58,7 +70,7 @@
             font-size: 24px;
             font-weight: 300;
             letter-spacing: 1px;
-            color: #222;
+            color: var(--text);
             text-decoration: none;
         }
 
@@ -69,7 +81,7 @@
         }
 
         .nav-menu a {
-            color: #666;
+            color: var(--muted);
             text-decoration: none;
             font-size: 15px;
             font-weight: 400;
@@ -78,7 +90,7 @@
 
         .nav-menu a:hover,
         .nav-menu a.active {
-            color: #222;
+            color: var(--text);
         }
 
         .nav-actions {
@@ -121,7 +133,7 @@
         .sidebar h3 {
             font-size: 14px;
             font-weight: 500;
-            color: #222;
+            color: var(--text);
             margin-bottom: 20px;
             letter-spacing: 0.5px;
         }
@@ -135,7 +147,7 @@
         }
 
         .category-list a {
-            color: #999;
+            color: var(--muted-2);
             text-decoration: none;
             font-size: 14px;
             font-weight: 400;
@@ -144,7 +156,7 @@
 
         .category-list a:hover,
         .category-list a.active {
-            color: #222;
+            color: var(--text);
         }
 
         /* Grid Layout */
@@ -183,14 +195,14 @@
         .item-title {
             font-size: 16px;
             font-weight: 500;
-            color: #222;
+            color: var(--text);
             margin-bottom: 8px;
             line-height: 1.3;
         }
 
         .item-description {
             font-size: 14px;
-            color: #666;
+            color: var(--muted);
             line-height: 1.5;
             margin-bottom: 15px;
         }
@@ -200,12 +212,12 @@
             justify-content: space-between;
             align-items: center;
             font-size: 13px;
-            color: #999;
+            color: var(--muted-2);
         }
 
         .item-source {
             text-decoration: none;
-            color: #999;
+            color: var(--muted-2);
         }
 
         .item-likes {
@@ -474,7 +486,26 @@
             item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(item);
         });
+        
+        // Dark mode toggle - MESMO CÓDIGO DO PORTFOLIO-CLEAN
+        const toggleBtn = document.getElementById('t-toggle');
+        const body = document.body;
+        
+        // Check for system preference or saved preference
+        const darkMode = localStorage.getItem('darkMode') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (darkMode === 'dark') {
+            body.classList.add('dark');
+            toggleBtn.textContent = '☀';
+        }
+        
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            const isDark = body.classList.contains('dark');
+            toggleBtn.textContent = isDark ? '☀' : '☾';
+            localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+        });
     </script>
-    <script src="/theme.js" defer></script>
 </body>
 </html>
