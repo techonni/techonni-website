@@ -8,7 +8,15 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        :root { --bg-start:#f8fafc; --bg-end:#e2e8f0; --text:#0f172a; --muted:#475569; --muted-2:#64748b; }
+        :root { 
+            --bg-start:#f8fafc; 
+            --bg-end:#e2e8f0; 
+            --text:#0f172a; 
+            --muted:#475569; 
+            --muted-2:#64748b;
+            --card:#ffffff;
+            --border: rgba(0,0,0,.1);
+        }
         body.dark{
             --bg-start:#000000;
             --bg-end:#111111;
@@ -38,11 +46,11 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(250, 250, 250, 0.98);
+            background: var(--bg-start);
             backdrop-filter: blur(20px);
             z-index: 9999;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 3px var(--border);
         }
 
         .nav {
@@ -58,7 +66,7 @@
             font-size: 26px;
             font-weight: 200;
             letter-spacing: 3px;
-            color: #333;
+            color: var(--text);
             text-decoration: none;
             text-transform: lowercase;
         }
@@ -70,7 +78,7 @@
         }
 
         .nav-links a {
-            color: #777;
+            color: var(--muted);
             text-decoration: none;
             font-size: 14px;
             font-weight: 300;
@@ -79,11 +87,11 @@
         }
 
         .nav-links a:hover {
-            color: #333;
+            color: var(--text);
         }
 
         .nav-contact {
-            color: #999;
+            color: var(--muted);
             text-decoration: none;
             font-size: 14px;
             font-weight: 300;
@@ -92,7 +100,7 @@
         }
 
         .nav-contact:hover {
-            color: #333;
+            color: var(--text);
         }
 
         /* Hero Section */
@@ -109,14 +117,14 @@
             font-size: clamp(48px, 8vw, 84px);
             font-weight: 100;
             letter-spacing: 4px;
-            color: #222;
+            color: var(--text);
             margin-bottom: 30px;
             line-height: 1.1;
         }
 
         .hero p {
             font-size: 18px;
-            color: #666;
+            color: var(--muted);
             font-weight: 300;
             max-width: 600px;
             margin: 0 auto 60px;
@@ -127,7 +135,7 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            color: #333;
+            color: var(--text);
             text-decoration: none;
             font-size: 14px;
             font-weight: 400;
@@ -202,21 +210,21 @@
             font-weight: 500;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #999;
+            color: var(--muted);
             margin-bottom: 12px;
         }
 
         .project-title {
             font-size: 24px;
             font-weight: 300;
-            color: #333;
+            color: var(--text);
             margin-bottom: 15px;
             letter-spacing: 1px;
         }
 
         .project-description {
             font-size: 14px;
-            color: #666;
+            color: var(--muted);
             line-height: 1.7;
             font-weight: 300;
             margin-bottom: 20px;
@@ -226,7 +234,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: #333;
+            color: var(--text);
             text-decoration: none;
             font-size: 13px;
             font-weight: 400;
@@ -276,8 +284,8 @@
             gap: 40px;
             margin-bottom: 80px;
             padding: 60px 0;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
         .stat {
@@ -287,7 +295,7 @@
         .stat-number {
             font-size: 48px;
             font-weight: 100;
-            color: #333;
+            color: var(--text);
             margin-bottom: 10px;
             letter-spacing: 2px;
         }
@@ -295,7 +303,7 @@
         .stat-label {
             font-size: 12px;
             font-weight: 500;
-            color: #999;
+            color: var(--muted);
             text-transform: uppercase;
             letter-spacing: 2px;
         }
@@ -311,14 +319,14 @@
         .about-content h2 {
             font-size: 36px;
             font-weight: 200;
-            color: #333;
+            color: var(--text);
             margin-bottom: 30px;
             letter-spacing: 2px;
         }
 
         .about-content p {
             font-size: 16px;
-            color: #666;
+            color: var(--muted);
             line-height: 1.8;
             font-weight: 300;
             margin-bottom: 25px;
@@ -574,6 +582,44 @@
     <footer style="text-align:center;padding:40px 0;border-top:1px solid rgba(15,23,42,.08);color:#64748b">techonni 2025</footer>
 
     <script>
+        // Dark mode toggle
+        const toggleBtn = document.getElementById('t-toggle');
+        const body = document.body;
+        
+        // Check for system preference or saved preference
+        const darkMode = localStorage.getItem('darkMode') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (darkMode === 'dark') {
+            body.classList.add('dark');
+            toggleBtn.textContent = '☀';
+        }
+        
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            const isDark = body.classList.contains('dark');
+            toggleBtn.textContent = isDark ? '☀' : '☾';
+            localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+        });
+        
+        // Fade-in animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
         // Project card click handlers
         document.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('click', function(e) {

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Techonni Clipboard Dark Mode</title>
+    <style>
+        :root { 
+            --bg-start:#f8fafc; 
+            --bg-end:#e2e8f0; 
+            --text:#0f172a; 
+            --muted:#475569; 
+            --muted-2:#64748b;
+            --card:#ffffff;
+            --border: rgba(0,0,0,.08);
+        }
+        body.dark{
+            --bg-start:#000000;
+            --bg-end:#111111;
+            --text:#ffffff;
+            --muted:#cccccc;
+            --muted-2:#aaaaaa;
+            --card:#222222;
+            --border: rgba(255,255,255,.15);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+            color: var(--text);
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .t-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--muted-2);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .t-toggle:hover {
+            opacity: 0.9;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 6px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Teste Dark Mode Toggle</h1>
+        <p>Clique no botão abaixo para alternar entre modo claro e escuro:</p>
+        
+        <button id="t-toggle" class="t-toggle" aria-label="Toggle dark mode">☾</button>
+        
+        <div class="status">
+            <p><strong>Status atual:</strong> <span id="current-mode">Modo Claro</span></p>
+            <p><strong>Tema salvo:</strong> <span id="saved-theme">Nenhum</span></p>
+            <p><strong>Preferência do sistema:</strong> <span id="system-pref">Desconhecido</span></p>
+        </div>
+    </div>
+
+    <script src="techonni-ready/theme.js"></script>
+    
+    <script>
+        // Script para mostrar informações de debug
+        function updateStatus() {
+            const currentMode = document.body.classList.contains('dark') ? 'Modo Escuro' : 'Modo Claro';
+            const savedTheme = localStorage.getItem('theme') || 'Nenhum';
+            const systemPref = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Escuro' : 'Claro';
+            
+            document.getElementById('current-mode').textContent = currentMode;
+            document.getElementById('saved-theme').textContent = savedTheme;
+            document.getElementById('system-pref').textContent = systemPref;
+            
+            // Atualizar ícone do botão para debug
+            const btn = document.getElementById('t-toggle');
+            console.log('Botão atual:', btn.textContent);
+        }
+        
+        // Atualizar status inicial
+        setTimeout(updateStatus, 100);
+        
+        // Monitorar mudanças
+        const observer = new MutationObserver(updateStatus);
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+        
+        // Monitorar cliques no botão
+        document.getElementById('t-toggle').addEventListener('click', () => {
+            setTimeout(updateStatus, 50);
+        });
+    </script>
+</body>
+</html>
