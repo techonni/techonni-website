@@ -624,10 +624,24 @@
         if (window.location.hostname.includes('github.io') || 
             window.location.hostname.includes('techonni.com') ||
             window.location.hostname === 'techonni-website.github.io') {
-            document.documentElement.style.fontSize = '90%'; // Reduz tudo em 10%
-            document.body.style.transform = 'scale(0.9)';
-            document.body.style.transformOrigin = 'top center';
-            document.body.style.minHeight = '111vh'; // Compensa a redução
+            
+            // Redução global mais suave que não afeta navegação
+            document.documentElement.style.fontSize = '88%';
+            
+            // Aplicar redução específica a elementos de conteúdo
+            const style = document.createElement('style');
+            style.textContent = `
+                .hero h1 { font-size: clamp(42px, 7vw, 75px) !important; }
+                .project-title { font-size: 21px !important; }
+                .project-description { font-size: 13px !important; }
+                .stat-number { font-size: 42px !important; }
+                .about-content h2 { font-size: 32px !important; }
+                .about-content p { font-size: 14px !important; }
+                .nav { padding: 18px 35px !important; }
+                .hero { padding: 140px 35px 120px !important; }
+                .main { padding: 0 35px !important; }
+            `;
+            document.head.appendChild(style);
         }
         
         // Project card click handlers
