@@ -620,6 +620,16 @@
             observer.observe(el);
         });
         
+        // GitHub Pages scale adjustment - reduzir 10% apenas no techonni.com
+        if (window.location.hostname.includes('github.io') || 
+            window.location.hostname.includes('techonni.com') ||
+            window.location.hostname === 'techonni-website.github.io') {
+            document.documentElement.style.fontSize = '90%'; // Reduz tudo em 10%
+            document.body.style.transform = 'scale(0.9)';
+            document.body.style.transformOrigin = 'top center';
+            document.body.style.minHeight = '111vh'; // Compensa a redução
+        }
+        
         // Project card click handlers
         document.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('click', function(e) {
